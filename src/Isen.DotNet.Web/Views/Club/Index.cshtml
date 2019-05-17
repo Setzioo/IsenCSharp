@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Toutes les villes";
+}
+@using Isen.DotNet.Library.Models
+@model IEnumerable<Club>
+
+<h1>Tous les clubs</h1>
+
+<table class="table table-striped">
+  <thead>
+      <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Adresse</th>
+          <th scope="col">Coordonnées</th>
+          <th scope="col">Logo</th>
+
+          <th>Action...</th>
+      </tr>
+  </thead>
+  <tbody>
+    @foreach(var Club in Model)
+    { 
+        var logoUrl = Club.Logo;
+        var coord = Club.Longitude.ToString() + ", " + Club.Latitude.ToString();
+
+      <tr>
+          <th scope="row">@Club.Id</th>
+          <td>@Club.Name</td>
+          <td>@Club.Adress</td>
+          <td>@coord</td>
+
+          <td><img src="@logoUrl" alt="Test" height="100"/></td>
+          <td>
+              <a class="btn btn-outline-primary"
+                 asp-controller="Club"
+                 asp-action="Edit"
+                 asp-route-id="@Club.Id">Modifier</a>
+              <a class="btn btn-outline-danger"
+                 asp-controller="Club"
+                 asp-action="Delete"
+                 asp-route-id="@Club.Id">Supprimer</a>
+          </td>
+      </tr>
+     }
+  </tbody>
+</table>

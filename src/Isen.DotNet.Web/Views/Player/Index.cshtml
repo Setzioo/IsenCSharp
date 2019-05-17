@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Toutes les joueuses";
+}
+@using Isen.DotNet.Library.Models
+@model IEnumerable<Player>
+
+<h1>Toutes les joueuses</h1>
+
+<table class="table table-striped">
+  <thead>
+      <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Date de naissance</th>
+          <th scope="col">Age</th>
+          <th scope="col">Historique des contrats</th>
+          <th>Action...</th>
+      </tr>
+  </thead>
+  <tbody>
+    @foreach(var Player in Model)
+    { 
+        var dateString = Player.DateOfBirth.HasValue ?
+            Player.DateOfBirth.Value.ToShortDateString() :
+            "";
+        
+      <tr>
+          <th scope="row">@Player.Id</th>
+          <td>@Player.Name</td>
+          <td>@dateString</td>
+          <td>@Player.Age an(s)</td>
+          <td><ul>
+            @foreach(var contrat in Player.ContractCollection)
+              {
+                  <li>@contrat.Name @contrat.PeriodDateString</li>
+              }
+          </ul></td>
+          <td>
+              <a class="btn btn-outline-primary"
+                 asp-controller="Player"
+                 asp-action="Edit"
+                 asp-route-id="@Player.Id">Modifier</a>
+              <a class="btn btn-outline-danger"
+                 asp-controller="Player"
+                 asp-action="Delete"
+                 asp-route-id="@Player.Id">Supprimer</a>
+          </td>
+      </tr>
+     }
+  </tbody>
+</table>

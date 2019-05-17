@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Edition d'un contrat";
+}
+@using Isen.DotNet.Library.Models
+@model Contract
+<h1>Edition d'un contrat (formulaire)</h1>
+
+<div class="row">
+    <div class="col-12">
+        
+        <form class="form-group" asp-action="Edit">
+            
+            <input type="hidden" 
+                   asp-for="Id"
+                   value="@Model?.Id" />
+
+            <div class="form-group">
+                <label for="ContractName">Nom du Contract</label>
+                <input id="ContractName"
+                       type="text"
+                       class="form-control"
+                       placeholder="Contract name"
+                       asp-for="Name"
+                       value="@Model?.Name" />
+            </div>
+
+            @{
+                var beginningDateString = Model?.BeginningDate
+                    .GetValueOrDefault(DateTime.MinValue)
+                    .ToString("dd/MM/yyyy");
+            }
+
+            <div class="form-group">
+                <label for="BeginningDate">Date de debut</label>
+                <input id="BeginningDate"
+                       type="text"
+                       class="form-control"
+                       placeholder="Date de debut"
+                       asp-for="BeginningDate"
+                       value="@beginningDateString" />
+            </div>
+
+            @{
+                var finishingDateString = Model?.FinishingDate
+                    .GetValueOrDefault(DateTime.MinValue)
+                    .ToString("dd/MM/yyyy");
+            }
+
+            <div class="form-group">
+                <label for="FinishingDate">Date de fin</label>
+                <input id="FinishingDate"
+                       type="text"
+                       class="form-control"
+                       placeholder="Date de fin"
+                       asp-for="FinishingDate"
+                       value="@finishingDateString" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Valider</button>
+            <a class="btn btn-secondary"
+               asp-controller="Contract" asp-action="Index">Annuler</a>
+
+        </form>
+
+    </div>
+</div>
